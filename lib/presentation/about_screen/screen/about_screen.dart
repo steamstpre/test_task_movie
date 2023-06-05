@@ -50,9 +50,11 @@ class AboutScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: CupertinoButton.filled(
-            onPressed: () => GetIt.instance<MainScreenBloc>().add(
-              AddToFavoriteEvent(model),
-            ),
+            onPressed: () => GetIt.instance<MainScreenBloc>()
+              ..add(AddToFavoriteEvent(model))
+              ..add(
+                GetDataEvent(),
+              ),
             child: const Text('Add to favorite'),
           ),
         ),

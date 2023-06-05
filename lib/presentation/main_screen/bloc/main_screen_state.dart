@@ -8,13 +8,21 @@ class MainScreenInitial extends MainScreenState {}
 class LoadingDataState extends MainScreenState {}
 
 class LoadedDataState extends MainScreenState {
-  List<String> data;
   List<MovieResult> results;
+  List<MovieResult> favoriteMovies;
 
   LoadedDataState(
-    this.data,
     this.results,
+    this.favoriteMovies,
   );
+
+  bool checkFavoriteStatus(int index) {
+    if (favoriteMovies.contains(results[index])) {
+      return true;
+    }
+
+    return false;
+  }
 }
 
 class LoadedFavoriteState extends MainScreenState {

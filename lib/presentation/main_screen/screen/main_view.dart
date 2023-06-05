@@ -13,11 +13,32 @@ class MainScreenView extends StatelessWidget {
       builder: (context, state) {
         if (state is LoadedDataState) {
           return ListView.builder(
-              itemCount: state.data.length,
+              itemCount: state.results.length,
               itemBuilder: (context, index) {
-                final item = state.data[index];
+                final item = state.results[index];
                 return ListTile(
-                  title: Text(item),
+                  title: Row(
+                    children: [
+                      Text(item.title),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          if (state.checkFavoriteStatus(index)) {
+                            GetIt.instance<MainScreenBloc>()
+                              ..add(RemoveFavoriteEvent(state.results[index]))
+                              ..add(GetDataEvent());
+                          } else {
+                            GetIt.instance<MainScreenBloc>()
+                              ..add(AddToFavoriteEvent(state.results[index]))
+                              ..add(GetDataEvent());
+                          }
+                        },
+                        child: Icon(state.checkFavoriteStatus(index)
+                            ? Icons.star
+                            : Icons.star_border),
+                      ),
+                    ],
+                  ),
                   onTap: () {
                     MovieResult item = state.results[index];
                     Navigator.of(context)

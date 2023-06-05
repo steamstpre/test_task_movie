@@ -9,7 +9,6 @@ part 'main_screen_state.dart';
 
 class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
   MovieModel? _data;
-  final List<String> _result = [];
   final API _api = API();
   final Repository _repository = Repository();
 
@@ -21,21 +20,17 @@ class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
   }
 
   Future<void> _getDataFromApi(GetDataEvent event, emit) async {
-    emit(LoadingDataState());
-    _data = await _api.sentRequest();
+    if (_data == null) {
+      emit(LoadingDataState());
+      _data = await _api.sentRequest();
+    }
+    await _repository.getFavoriteMovie();
     if (_data != null) {
       _repository.data = _data;
-    }
-    if (_data != null) {
-      _data?.results.forEach(
-        (element) {
-          _result.add(element.title);
-        },
-      );
       emit(
         LoadedDataState(
-          _result,
           _repository.data!.results,
+          _repository.favoriteMovie.toList(),
         ),
       );
     }
