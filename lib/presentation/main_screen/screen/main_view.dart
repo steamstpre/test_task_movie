@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:test_task_movie/model/movie_result.dart';
 import 'package:test_task_movie/presentation/main_screen/bloc/main_screen_bloc.dart';
 
@@ -31,7 +32,21 @@ class MainScreenView extends StatelessWidget {
               itemBuilder: (context, index) {
                 final item = state.favoriteMovies[index];
                 return ListTile(
-                  title: Text(item.title),
+                  title: Row(
+                    children: [
+                      Text(item.title),
+                      const Spacer(),
+                      GestureDetector(
+                          onTap: () => GetIt.instance<MainScreenBloc>()
+                            ..add(
+                              RemoveFavoriteEvent(
+                                state.favoriteMovies[index],
+                              ),
+                            )
+                            ..add(GetFavoriteEvent()),
+                          child: const Icon(Icons.cancel_outlined)),
+                    ],
+                  ),
                   onTap: () {
                     MovieResult item = state.favoriteMovies[index];
                     Navigator.of(context)

@@ -12,3 +12,9 @@ class AddToFavoriteEvent extends MainScreenEvent {
 
   AddToFavoriteEvent(this.model);
 }
+
+class RemoveFavoriteEvent extends MainScreenEvent {
+  MovieResult model;
+
+  RemoveFavoriteEvent(this.model);
+}

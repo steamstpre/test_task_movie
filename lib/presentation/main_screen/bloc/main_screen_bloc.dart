@@ -17,6 +17,7 @@ class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
     on<GetDataEvent>(_getDataFromApi);
     on<GetFavoriteEvent>(_getFavoriteMovie);
     on<AddToFavoriteEvent>(_addFavoriteMovie);
+    on<RemoveFavoriteEvent>(_removeFavoriteMovie);
   }
 
   Future<void> _getDataFromApi(GetDataEvent event, emit) async {
@@ -50,6 +51,11 @@ class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
 
   Future<void> _addFavoriteMovie(AddToFavoriteEvent event, emit) async {
     _repository.favoriteMovie.add(event.model);
+    await _repository.saveFavoriteMovie();
+  }
+
+  Future<void> _removeFavoriteMovie(RemoveFavoriteEvent event, emit) async {
+    _repository.favoriteMovie.remove(event.model);
     await _repository.saveFavoriteMovie();
   }
 }
