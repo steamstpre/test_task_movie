@@ -1,8 +1,7 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:meta/meta.dart';
 import 'package:test_task_movie/model/movie_result.dart';
-import 'package:test_task_movie/services%20/api/API.dart';
+import 'package:test_task_movie/services%20/api/api_service.dart';
 import 'package:test_task_movie/services%20/repository/repository.dart';
 
 part 'main_screen_event.dart';
@@ -19,8 +18,8 @@ class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
     on<RemoveFavoriteEvent>(_removeFavoriteMovie);
   }
 
-  Future<void> _getDataFromApi(GetDataEvent event, emit) async {
-    final API api = API();
+  Future<void> _getDataFromApi(GetDataEvent event, Emitter emit) async {
+    final ApiService api = ApiService();
     if (_data == null) {
       emit(LoadingDataState());
       _data = await api.sentRequest();
@@ -37,7 +36,7 @@ class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
     }
   }
 
-  Future<void> _getFavoriteMovie(event, emit) async {
+  Future<void> _getFavoriteMovie(event, Emitter emit) async {
     await _repository.getFavoriteMovie();
     emit(LoadingDataState());
     emit(LoadedFavoriteState(

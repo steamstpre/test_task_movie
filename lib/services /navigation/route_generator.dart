@@ -8,7 +8,7 @@ class RouteGenerator {
     final args = routeSettings.arguments;
     switch (routeSettings.name) {
       case '/':
-        return MaterialPageRoute(builder: (context) => MainScreen());
+        return MaterialPageRoute(builder: (context) => const MainScreen());
       case '/detail_screen':
         return MaterialPageRoute(
           builder: (context) => AboutScreen(

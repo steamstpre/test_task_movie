@@ -1,6 +1,5 @@
 part of '../../main_screen/bloc/main_screen_bloc.dart';
 
-@immutable
 abstract class MainScreenState {}
 
 class MainScreenInitial extends MainScreenState {}
@@ -8,8 +7,8 @@ class MainScreenInitial extends MainScreenState {}
 class LoadingDataState extends MainScreenState {}
 
 class LoadedDataState extends MainScreenState {
-  List<MovieResult> results;
-  List<MovieResult> favoriteMovies;
+  final List<MovieResult> results;
+  final List<MovieResult> favoriteMovies;
 
   LoadedDataState(
     this.results,
@@ -26,7 +25,7 @@ class LoadedDataState extends MainScreenState {
 }
 
 class LoadedFavoriteState extends MainScreenState {
-  List<MovieResult> favoriteMovies;
+  final List<MovieResult> favoriteMovies;
 
   LoadedFavoriteState(this.favoriteMovies);
 }

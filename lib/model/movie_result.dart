@@ -40,7 +40,7 @@ class MovieModel {
 }
 
 class MovieResult extends Equatable {
-  MovieResult({
+  const MovieResult({
     required this.posterPath,
     required this.adult,
     required this.overview,
@@ -57,20 +57,20 @@ class MovieResult extends Equatable {
     required this.voteAverage,
   });
 
-  String posterPath;
-  bool adult;
-  String overview;
-  DateTime releaseDate;
-  List<int> genreIds;
-  int id;
-  String originalTitle;
-  String originalLanguage;
-  String title;
-  String backdropPath;
-  double popularity;
-  int voteCount;
-  bool video;
-  double voteAverage;
+  final String posterPath;
+  final bool adult;
+  final String overview;
+  final DateTime releaseDate;
+  final List<int> genreIds;
+  final int id;
+  final String originalTitle;
+  final String originalLanguage;
+  final String title;
+  final String backdropPath;
+  final double popularity;
+  final int voteCount;
+  final bool video;
+  final double voteAverage;
 
   factory MovieResult.fromJson(Map<String, dynamic> json) => MovieResult(
         posterPath: json["poster_path"],
