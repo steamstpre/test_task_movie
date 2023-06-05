@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:test_task_movie/const/app_consts.dart';
 import 'package:test_task_movie/model/movie_result.dart';
 import 'package:test_task_movie/presentation/main_screen/bloc/main_screen_bloc.dart';
 
@@ -13,7 +14,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About Screen'),
+        title: const Text(AppStrings.aboutScreen),
       ),
       body: Column(
         children: [
@@ -55,7 +56,7 @@ class AboutScreen extends StatelessWidget {
               ..add(
                 GetDataEvent(),
               ),
-            child: const Text('Add to favorite'),
+            child: const Text(AppStrings.addToFavorite),
           ),
         ),
       ),

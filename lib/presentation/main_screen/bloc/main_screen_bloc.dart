@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:test_task_movie/model/movie_result.dart';
 import 'package:test_task_movie/services%20/api/API.dart';
@@ -7,11 +8,10 @@ import 'package:test_task_movie/services%20/repository/repository.dart';
 part 'main_screen_event.dart';
 part 'main_screen_state.dart';
 
-class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
-  MovieModel? _data;
-  final API _api = API();
-  final Repository _repository = Repository();
+final _repository = GetIt.instance<Repository>();
+MovieModel? _data;
 
+class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
   MainScreenBloc() : super(MainScreenInitial()) {
     on<GetDataEvent>(_getDataFromApi);
     on<GetFavoriteEvent>(_getFavoriteMovie);
@@ -20,9 +20,10 @@ class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
   }
 
   Future<void> _getDataFromApi(GetDataEvent event, emit) async {
+    final API api = API();
     if (_data == null) {
       emit(LoadingDataState());
-      _data = await _api.sentRequest();
+      _data = await api.sentRequest();
     }
     await _repository.getFavoriteMovie();
     if (_data != null) {
